@@ -1,0 +1,5 @@
+{
+  "name": "日程规划小助手",
+  "description": "一个AI驱动的内容创作者周计划生成器。输入您的周目标，自动生成包含待办事项和创意选题的每日清单。",
+  "requestFramePermissions": []
+}
