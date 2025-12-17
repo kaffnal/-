@@ -53,7 +53,7 @@ const WorldClock = ({ timezone }: { timezone: string }) => {
   };
 
   return (
-    <div className="bg-slate-800 text-white text-sm px-4 py-2 rounded-full shadow-lg flex items-center gap-2 font-mono whitespace-nowrap hidden sm:flex">
+    <div className="bg-slate-800 text-white text-xs sm:text-sm px-4 py-2 rounded-full shadow-md flex items-center justify-center gap-2 font-mono whitespace-nowrap border border-slate-700">
       <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 text-indigo-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
       </svg>
@@ -190,41 +190,59 @@ export default function App() {
       />
 
       {/* Header */}
-      <header className="bg-white border-b border-slate-200 sticky top-0 z-10">
-        <div className="max-w-5xl mx-auto px-4 py-4 flex flex-col sm:flex-row justify-between items-center gap-4">
-          <div className="flex items-center gap-2">
-            {/* Logo */}
-            <div className="bg-indigo-600 w-8 h-8 rounded-lg flex items-center justify-center text-white">
-              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor" className="w-5 h-5">
-                <path strokeLinecap="round" strokeLinejoin="round" d="M6.75 3v2.25M17.25 3v2.25M3 18.75V7.5a2.25 2.25 0 012.25-2.25h13.5A2.25 2.25 0 0121 7.5v11.25m-18 0A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75m-18 0v-7.5A2.25 2.25 0 015.25 9h13.5A2.25 2.25 0 0121 11.25v7.5" />
-              </svg>
+      <header className="bg-white border-b border-slate-200 sticky top-0 z-10 shadow-sm/50">
+        <div className="max-w-5xl mx-auto px-4 py-3">
+          {/* 
+            Flex Wrap Strategy:
+            Mobile: 
+              - Logo (Order 1) --left
+              - Actions (Order 2) --right
+              - Clock (Order 3) --center, full width new line
+            Desktop (md):
+              - Logo (Order 1)
+              - Clock (Order 2)
+              - Actions (Order 3)
+          */}
+          <div className="flex flex-wrap items-center justify-between gap-y-3 md:gap-y-0">
+            
+            {/* 1. Logo & Title (Left) */}
+            <div className="flex items-center gap-2 order-1">
+              <div className="bg-indigo-600 w-8 h-8 rounded-lg flex items-center justify-center text-white shadow-sm shrink-0">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor" className="w-5 h-5">
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M6.75 3v2.25M17.25 3v2.25M3 18.75V7.5a2.25 2.25 0 012.25-2.25h13.5A2.25 2.25 0 0121 7.5v11.25m-18 0A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75m-18 0v-7.5A2.25 2.25 0 015.25 9h13.5A2.25 2.25 0 0121 11.25v7.5" />
+                </svg>
+              </div>
+              <h1 className="text-lg sm:text-xl font-bold text-slate-800 tracking-tight">日程规划小助手</h1>
             </div>
-            <h1 className="text-xl font-bold text-slate-800 tracking-tight">日程规划小助手</h1>
-          </div>
-          
-          <div className="flex items-center gap-4">
-             <WorldClock timezone={settings.timezone} />
-             
-             {/* Settings Button */}
-             <button
-               onClick={() => setIsSettingsOpen(true)}
-               className="p-2 text-slate-500 hover:text-indigo-600 hover:bg-slate-100 rounded-full transition-all"
-               title="设置"
-             >
-               <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z" />
-                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
-               </svg>
-             </button>
+            
+            {/* 2. Actions (Right on Mobile, Far Right on Desktop) */}
+            <div className="flex items-center gap-3 order-2 md:order-3">
+              {plan && (
+                <button 
+                  onClick={resetPlan}
+                  className="text-sm text-slate-500 hover:text-red-600 transition-colors whitespace-nowrap font-medium"
+                >
+                  新建
+                </button>
+              )}
+               {/* Settings Button */}
+               <button
+                 onClick={() => setIsSettingsOpen(true)}
+                 className="p-2 text-slate-500 hover:text-indigo-600 hover:bg-slate-100 rounded-full transition-all active:scale-95"
+                 title="设置"
+               >
+                 <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z" />
+                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                 </svg>
+               </button>
+            </div>
 
-            {plan && (
-              <button 
-                onClick={resetPlan}
-                className="text-sm text-slate-500 hover:text-red-600 transition-colors whitespace-nowrap"
-              >
-                新建计划
-              </button>
-            )}
+            {/* 3. Clock (Center Bottom on Mobile, Middle on Desktop) */}
+            <div className="w-full flex justify-center order-3 md:w-auto md:order-2 md:mx-auto">
+               <WorldClock timezone={settings.timezone} />
+            </div>
+
           </div>
         </div>
       </header>
