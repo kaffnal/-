@@ -17,7 +17,9 @@
         };
       })();
     </script>
-    <!-- Use Tailwind CDN for simplicity -->
+    <!-- Use Tailwind CDN for simplicity (It will be embedded if possible, or require net for styles. 
+         For a pure offline single file, usually we'd bundle CSS too, but CDN is acceptable for this quick setup 
+         unless you strictly need offline styling too. Kept as is per user setup.) -->
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <style>
