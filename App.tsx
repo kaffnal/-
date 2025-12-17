@@ -53,8 +53,8 @@ const WorldClock = ({ timezone }: { timezone: string }) => {
   };
 
   return (
-    <div className="bg-slate-800 text-white text-xs sm:text-sm px-4 py-2 rounded-full shadow-md flex items-center justify-center gap-2 font-mono whitespace-nowrap border border-slate-700">
-      <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 text-indigo-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+    <div className="flex items-center justify-center gap-1.5 text-sm font-medium text-slate-600 tabular-nums tracking-tight transition-colors hover:text-indigo-600">
+      <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 text-indigo-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
       </svg>
       <span>{getFormattedTime()}</span>
@@ -190,7 +190,7 @@ export default function App() {
       />
 
       {/* Header */}
-      <header className="bg-white border-b border-slate-200 sticky top-0 z-10 shadow-sm/50">
+      <header className="bg-white border-b border-slate-200 sticky top-0 z-10 shadow-sm/50 backdrop-blur-md bg-white/90">
         <div className="max-w-5xl mx-auto px-4 py-3">
           {/* 
             Flex Wrap Strategy:
@@ -203,7 +203,7 @@ export default function App() {
               - Clock (Order 2)
               - Actions (Order 3)
           */}
-          <div className="flex flex-wrap items-center justify-between gap-y-3 md:gap-y-0">
+          <div className="flex flex-wrap items-center justify-between gap-y-2 md:gap-y-0">
             
             {/* 1. Logo & Title (Left) */}
             <div className="flex items-center gap-2 order-1">
@@ -216,11 +216,11 @@ export default function App() {
             </div>
             
             {/* 2. Actions (Right on Mobile, Far Right on Desktop) */}
-            <div className="flex items-center gap-3 order-2 md:order-3">
+            <div className="flex items-center gap-2 order-2 md:order-3">
               {plan && (
                 <button 
                   onClick={resetPlan}
-                  className="text-sm text-slate-500 hover:text-red-600 transition-colors whitespace-nowrap font-medium"
+                  className="px-3 py-1.5 text-sm font-medium text-slate-600 hover:text-red-600 hover:bg-slate-100 rounded-lg transition-all"
                 >
                   新建
                 </button>
@@ -228,7 +228,7 @@ export default function App() {
                {/* Settings Button */}
                <button
                  onClick={() => setIsSettingsOpen(true)}
-                 className="p-2 text-slate-500 hover:text-indigo-600 hover:bg-slate-100 rounded-full transition-all active:scale-95"
+                 className="p-2 text-slate-500 hover:text-indigo-600 hover:bg-slate-100 rounded-lg transition-all active:scale-95"
                  title="设置"
                >
                  <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -239,7 +239,7 @@ export default function App() {
             </div>
 
             {/* 3. Clock (Center Bottom on Mobile, Middle on Desktop) */}
-            <div className="w-full flex justify-center order-3 md:w-auto md:order-2 md:mx-auto">
+            <div className="w-full flex justify-center order-3 md:w-auto md:order-2 md:mx-auto pt-1 md:pt-0">
                <WorldClock timezone={settings.timezone} />
             </div>
 
@@ -252,9 +252,9 @@ export default function App() {
         {/* Intro / Input Section */}
         {!plan && !isLoading && (
           <div className="bg-white rounded-2xl shadow-xl border border-slate-100 p-8 mb-8 text-center">
-            <h2 className="text-3xl font-extrabold text-slate-900 mb-4">几秒钟内搞定本周内容规划</h2>
+            <h2 className="text-3xl font-extrabold text-slate-900 mb-4">几秒钟内搞定本周日程规划</h2>
             <p className="text-slate-600 mb-8 max-w-lg mx-auto">
-              输入您的目标（例如：“写完科幻小说第三章，发3篇笔记”）。<br/>
+              请在下方输入您本周的目标<br/>
               <span className="text-indigo-600 font-medium">您可以告诉小助手哪些已经做完了，小助手会帮忙自动规划剩下的任务！</span>
             </p>
             
