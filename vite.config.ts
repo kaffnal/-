@@ -1,13 +1,16 @@
 import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react';
+import { viteSingleFile } from 'vite-plugin-singlefile';
 
 // https://vitejs.dev/config/
 export default defineConfig({
-  plugins: [react()],
-  // Ensure paths are relative so the app works even if not at the domain root
-  base: './',
+  plugins: [
+    react(),
+    viteSingleFile() // This plugin inlines all JS/CSS into the HTML
+  ],
+  base: './', // Essential for file:// protocol
   build: {
     outDir: 'dist',
-    sourcemap: true
+    emptyOutDir: true,
   }
 });
